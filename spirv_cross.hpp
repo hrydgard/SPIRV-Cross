@@ -571,6 +571,17 @@ protected:
 		void register_combined_image_sampler(SPIRFunction &caller, uint32_t texture_id, uint32_t sampler_id);
 	};
 
+	struct ActiveBuiltinHandler : OpcodeHandler
+	{
+		ActiveBuiltinHandler(Compiler &compiler_)
+			: compiler(compiler_)
+		{
+		}
+
+		bool handle(spv::Op opcode, const uint32_t *args, uint32_t length) override;
+		Compiler &compiler;
+	};
+
 	bool traverse_all_reachable_opcodes(const SPIRBlock &block, OpcodeHandler &handler) const;
 	bool traverse_all_reachable_opcodes(const SPIRFunction &block, OpcodeHandler &handler) const;
 	// This must be an ordered data structure so we always pick the same type aliases.
@@ -582,6 +593,10 @@ protected:
 
 	uint64_t get_buffer_block_flags(const SPIRVariable &var);
 	bool get_common_basic_type(const SPIRType &type, SPIRType::BaseType &base_type);
+
+	uint64_t active_builtins = 0;
+	// Traverses all reachable opcodes and sets active_builtins to a bitmask of all builtin variables which are accessed in the shader.
+	void update_active_builtins();
 };
 }
 

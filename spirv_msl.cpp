@@ -75,6 +75,8 @@ string CompilerMSL::compile(MSLConfiguration &msl_cfg, vector<MSLVertexAttr> *p_
 		for (auto &rb : *p_res_bindings)
 			resource_bindings.push_back(&rb);
 
+	update_active_builtins();
+
 	// Preprocess OpCodes to extract the need to output additional header content
 	set_enabled_interface_variables(get_active_interface_variables());
 	preprocess_op_codes();
