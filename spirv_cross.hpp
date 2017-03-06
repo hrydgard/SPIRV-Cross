@@ -594,7 +594,8 @@ protected:
 	uint64_t get_buffer_block_flags(const SPIRVariable &var);
 	bool get_common_basic_type(const SPIRType &type, SPIRType::BaseType &base_type);
 
-	uint64_t active_builtins = 0;
+	uint64_t active_input_builtins = 0;
+	uint64_t active_output_builtins = 0;
 	// Traverses all reachable opcodes and sets active_builtins to a bitmask of all builtin variables which are accessed in the shader.
 	void update_active_builtins();
 };
