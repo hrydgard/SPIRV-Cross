@@ -3109,7 +3109,7 @@ bool Compiler::ActiveBuiltinHandler::handle(spv::Op opcode, const uint32_t *args
 		{
 			auto &type = compiler.get<SPIRType>(var->basetype);
 			auto &flags =
-				type.storage == StorageClassInput ? compiler.active_input_builtins : compiler.active_output_builtins;
+			    type.storage == StorageClassInput ? compiler.active_input_builtins : compiler.active_output_builtins;
 			flags |= 1ull << compiler.meta[id].decoration.builtin_type;
 		}
 	};
@@ -3172,7 +3172,8 @@ bool Compiler::ActiveBuiltinHandler::handle(spv::Op opcode, const uint32_t *args
 			type = &compiler.get<SPIRType>(type->parent_type);
 		}
 
-		auto &flags = type->storage == StorageClassInput ? compiler.active_input_builtins : compiler.active_output_builtins;
+		auto &flags =
+		    type->storage == StorageClassInput ? compiler.active_input_builtins : compiler.active_output_builtins;
 
 		uint32_t count = length - 3;
 		args += 3;
